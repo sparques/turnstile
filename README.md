@@ -1,14 +1,14 @@
 # Turnstile
 
-Turnstile is a go package for using an io.ReadWriter or io.ReadWriteClose as a net.Conn.
+Turnstile is a go package for using an io.ReadWriter or io.ReadWriteCloser as a net.Conn.
 
-This allows, for example, using a serial line to serve HTTP. Serving http over the serial line acts like a single HTTP connection with an infinite KeepAlive.
+This allows, for example, using a serial line to serve HTTP. Serving HTTP over the serial line acts like a single HTTP connection with an infinite KeepAlive.
 
 # Examples
 ## "Listen" for a Connection (server-side)
 
 ```go
-// NB: to set baudrate on a serial device, you need a proper terminal
+// NB: to set baudrate on a serial device, you need a proper serial
 // package. e.g. go.bug.st/serial
 
 openSerial := func() (io.ReadWriteCloser, error) {
