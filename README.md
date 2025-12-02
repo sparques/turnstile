@@ -7,7 +7,14 @@ This allows, for example, using a serial line to serve HTTP. Serving http over t
 # Examples
 ## "Listen" for a Connection (server-side)
 
-```
+```go
+// NB: to set baudrate on a serial device, you need a proper terminal
+// package. e.g. go.bug.st/serial
+
+openSerial := func() (io.ReadWriteCloser, error) {
+	return os.OpenFile("/dev/ttyUSB",os.O_RDWR))
+}
+
 l := turnstile.NewReopenListener(func() (io.ReadWriteCloser, error) {
 	return os.OpenFile("/dev/ttyUSB",os.O_RDWR))
 }, "/dev/ttyUSB0")
@@ -27,7 +34,11 @@ srv.Serve(conn) // blocking
 Here's an example of using turnstile with go's HTTP client.
 
 
-```
+```go
+openSerial := func() (io.ReadWriteCloser, error) {
+	return os.OpenFile("/dev/ttyUSB",os.O_RDWR))
+}
+
 dialer := turnstile.NewReopenDialer(openSerial, "/dev/ttyUSB0")
 
 tr := &http.Transport{
