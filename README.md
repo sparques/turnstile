@@ -4,7 +4,7 @@ Turnstile is a go package for using an io.ReadWriter or io.ReadWriteCloser as a 
 
 This allows, for example, using a serial line to serve HTTP. Serving HTTP over the serial line acts like a single HTTP connection with an infinite KeepAlive.
 
-If your serial connection is unreliable, consider layering this with an [HDLC package](github.com/sparques/hdlc).
+If your serial connection is unreliable, consider layering this with an [HDLC package](https://github.com/sparques/hdlc).
 
 # Examples
 ## "Listen" for a Connection (server-side)
