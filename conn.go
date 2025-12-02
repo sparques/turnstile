@@ -6,11 +6,21 @@ import (
 	"time"
 )
 
+// serialAddr implements net.Addr
+// Network() always returns "serial"
+// String() returns serialAddr itself (cast to a string).
 type serialAddr string
 
 func (a serialAddr) Network() string { return "serial" }
 func (a serialAddr) String() string  { return string(a) }
 
+// rwConn implements net.Conn
+// net.Conn is an interface that includes an io.ReadWriteCloser()
+// so to use an io.ReadWriterCloser as a net.Conn, only the remaining
+// methods of net.Conn need to be implemented.
+//
+// All the Deadline methods (SetDeadline, SetReadDeadline,
+// SetWriteDeadline) are nil operations.
 type rwConn struct {
 	io.ReadWriteCloser
 	local, remote net.Addr
@@ -29,6 +39,9 @@ func (c *rwConn) Close() error {
 	return c.ReadWriteCloser.Close()
 }
 
+// rwNilCloser is a small utility type. It has a nil-operation
+// Close() method so that an io.ReadWriter can be used as
+// an io.ReadWriteCloser.
 type rwNilCloser struct {
 	io.ReadWriter
 }
